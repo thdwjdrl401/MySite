@@ -1,0 +1,12 @@
+package com.example.test.bucketlist;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+class BuctetController {
+	@GetMapping("/bucket/list")
+	public String root() {
+		return "bucket_list";
+	}
+}

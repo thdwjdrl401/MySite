@@ -1,0 +1,39 @@
+<html layout:decorate="~{layout}">
+  <div layout:fragment="content" class="container my-3">
+    <div class="row my-3">
+      <div class="col-6">
+        <a th:href="@{/bucket/create}" class="btn btn-primary"
+          >버킷 리스트 등록하기</a
+        >
+      </div>
+    </div>
+
+    <table class="table">
+      <thead class="table-dark">
+        <tr class="text-center">
+          <th>번호</th>
+          <th style="width:50%">제목</th>
+          <th>생성일시</th>
+          <th>달성일시</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  class="text-center" th:each="bucket, loop : ${bucketList}">
+          <td th:text="${loop.count}"></td>
+          <td class="text-start" >
+            <a
+              th:href="@{|/bucket/detail/${bucket.id}|}"
+              th:text="${bucket.subject}"
+            ></a>
+          </td>
+          <td
+            th:text="${#temporals.format(bucket.createDate, 'yyyy-MM-dd')}"
+          ></td>
+          <td
+            th:text="${#temporals.format(bucket.createDate, 'yyyy-MM-dd')}"
+          ></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</html>

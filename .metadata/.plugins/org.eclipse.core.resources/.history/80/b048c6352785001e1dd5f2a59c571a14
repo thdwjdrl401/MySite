@@ -1,0 +1,49 @@
+package com.example.test.bucketlist;
+
+import java.security.Principal;
+import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.example.test.question.QuestionForm;
+import com.example.test.user.SiteUser;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import com.example.test.user.SiteUser;
+import com.example.test.user.UserService;
+
+@RequiredArgsConstructor
+@Controller
+public class BucketController {
+	private final BucketService bucketService;
+	private final UserService userService;
+
+	@GetMapping("/bucket/list")
+	public String list(Model model) {
+		List<BucketList> bucketList = this.bucketService.getList();
+		model.addAttribute("bucketList", bucketList);
+		return "bucket_list";
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/bucket/create")
+	public String bucketCreate(BucketForm bucketForm) {
+		return "bucket_form";
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/bucket/create")
+	public String bucketCreate(@Valid BucketForm bucketForm, BindingResult bindingResult, Principal principal) {
+		if (bindingResult.hasErrors()) {
+			return "bucket_form";
+		}
+		SiteUser siteUser = this.userService.getUser(principal.getName());
+		this.bucketService.create(bucketForm.getSubject(), bucketForm.getContent(), siteUser);
+		return "redirect:/question/list";
+	}
+}

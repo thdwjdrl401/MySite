@@ -1,0 +1,28 @@
+package com.example.test.bucketlist;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Controller
+public class BucketController {
+	private final BucketService bucketService;
+
+	@GetMapping("/bucket/list")
+	public String list(Model model) {
+		List<BucketList> bucketList = this.bucketService.getList();
+		model.addAttribute("bucketList", bucketList);
+		return "bucket_list";
+	}
+	
+	@GetMapping("/bucket/create")
+	public String create(Model model) {
+		List<BucketList> bucketList = this.bucketService.getList();
+		model.addAttribute("bucketList", bucketList);
+		return "bucket_create";
+	}
+}

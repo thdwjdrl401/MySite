@@ -1,0 +1,55 @@
+
+<html layout:decorate="~{layout}">
+	<style>
+
+.subject {text-decoration: none}
+
+</style>
+  <div layout:fragment="content" class="container my-3">
+    <div class="row my-3">
+      <div class="col-6">
+        <a th:href="@{/bucket/create}" class="btn btn-primary"
+          >버킷 리스트 등록하기</a
+        >
+      </div>
+    </div>
+
+    <table class="table">
+      <thead class="table-dark">
+        <tr class="text-center">
+          <th>번호</th>
+          <th style="width:50%">버킷 리스트</th>
+          <th>생성일시</th>
+          <th>달성일시</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  class="text-center" th:each="bucketList, loop : ${bucketList}">
+          <td th:text="${loop.count}"></td>
+          <td class="text-start" >
+            <del><a 
+            class="subject"
+            th:if="${bucketList.clear == 1}"
+              th:href="@{|/bucket/detail/${bucketList.id}|}"
+              th:text="${bucketList.subject}"
+            ></a></del>
+            <a 
+                        class="subject"
+         th:if="${bucketList.clear == 0}"
+              th:href="@{|/bucket/detail/${bucketList.id}|}"
+              th:text="${bucketList.subject}"
+            ></a>
+          </td>
+          <td
+            th:text="${#temporals.format(bucketList.createDate, 'yyyy-MM-dd')}"
+          ></td>
+          <td>
+			<span
+              th:if="${bucketList.createDate != null}"
+              th:text="${#temporals.format(bucketList.createDate, 'yyyy-MM-dd')}"
+            ></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</html>

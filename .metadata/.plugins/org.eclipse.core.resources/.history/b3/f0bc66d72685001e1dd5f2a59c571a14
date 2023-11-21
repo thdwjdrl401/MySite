@@ -1,0 +1,38 @@
+package com.example.test.bucketlist;
+
+import java.util.List;
+import java.time.LocalDateTime;
+import org.springframework.stereotype.Service;
+import java.util.Optional;
+import com.example.test.DataNotFoundException;
+import com.example.test.user.SiteUser;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Service
+public class BucketService {
+	private final BucketRepository bucketRepository;
+
+	public List<BucketList> getList() {
+		return this.bucketRepository.findAll();
+	}
+	 public BucketList getQuestion(Integer id) {  
+	        Optional<BucketList> bucket = this.bucketRepository.findById(id);
+	        if (bucket.isPresent()) {
+	            return bucket.get();
+	        } else {
+	            throw new DataNotFoundException("bucketlist not found");
+	        }
+	    }
+	    
+	    public void create(String subject, String content, SiteUser user) {
+	    	BucketList b = new BucketList();
+	        b.setSubject(subject);
+	        b.setContent(content);
+	        b.setCreateDate(LocalDateTime.now());
+	        q.setAuthor(user);
+
+	        this.bucketRepository.save(b);
+	    }
+}

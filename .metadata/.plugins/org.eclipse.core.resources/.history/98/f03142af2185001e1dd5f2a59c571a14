@@ -1,0 +1,18 @@
+package com.example.test.bucketlist;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Service
+public class BucketService {
+	private final BucketRepository bucketRepository;
+
+	public List<BucketList> getList() {
+		return this.bucketRepository.findAll();
+	}
+
+}

@@ -1,0 +1,6 @@
+package com.example.test;
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
+public class BooleanToYNConverter implements AttributeConverter<Boolean, String>  {
+
+}
