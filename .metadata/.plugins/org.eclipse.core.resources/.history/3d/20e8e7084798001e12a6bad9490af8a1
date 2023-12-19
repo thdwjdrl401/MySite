@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+	
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <!-- sbb CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <title>CGDA</title>
+    <!-- 지도 -->
+	<link rel="stylesheet" th:href="@{/assets/css/korea-map-font-v1.css}">
+    <style>
+		a {
+			text-decoration:none;
+			color: black;
+		}
+		.korea-map-font-v1 {
+  width: 500px;
+  font-size: 500px;
+ 
+}
+  #g {
+        color: ;: #009300;
+
+      }
+  #container {
+        width: 500px;
+        min-height: 700px;
+        float: left;
+        fill: none;
+      }
+    
+      #states path {
+        stroke: #000000;
+        stroke-width: 1.5px;
+      }
+
+	  
+      #states path:hover {
+        fill: #009300;
+      }
+
+      #states .active {
+        fill: red;
+      }
+
+      #states .activeDetail {
+        fill: blue;
+      }
+
+      #states path {
+        cursor: pointer;
+      }
+
+      #states text {
+        cursor: pointer;
+        font-size: 12px;
+        fill: none;
+      }
+		</style>
+		    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		    
+		 <!-- 드롭박스 -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+
+</head>
+
+<body>
+<!-- 네비게이션바 -->
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+<th:block layout:fragment="content"></th:block>
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- Bootstrap JS -->
+<script th:src="@{/bootstrap.min.js}"></script>
+<!-- 자  바  스  크  립  트     Start -->
+<th:block layout:fragment="script"></th:block>
+<!-- 자  바  스  크  립  트     End -->
+</body>
+</html>

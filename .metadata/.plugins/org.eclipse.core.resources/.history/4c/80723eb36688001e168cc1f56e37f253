@@ -1,0 +1,134 @@
+package com.example.test.bucketlist;
+
+import java.security.Principal;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.example.test.answer.AnswerForm;
+import com.example.test.question.Question;
+import com.example.test.question.QuestionForm;
+import com.example.test.user.SiteUser;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import com.example.test.user.SiteUser;
+import com.example.test.user.UserService;
+
+@RequestMapping("/bucket")
+@RequiredArgsConstructor
+@Controller
+public class BucketController {
+	private final BucketService bucketService;
+	private final UserService userService;
+
+	@GetMapping("/list")
+	public String list(Model model) {
+		List<BucketList> bucketList = this.bucketService.getList();
+		model.addAttribute("bucketList", bucketList);
+		return "bucket_list";
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/create")
+	public String bucketCreate(BucketForm bucketForm) {
+		return "bucket_form";
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/create")
+	public String bucketCreate(BucketForm bucketForm, BindingResult bindingResult, Principal principal) {
+		if (bindingResult.hasErrors()) {
+			return "bucket_form";
+		}
+		SiteUser siteUser = this.userService.getUser(principal.getName());
+		this.bucketService.create(bucketForm.getSubject(), bucketForm.getContent(), siteUser);
+		return "redirect:/bucket/list";
+	}
+
+	@GetMapping(value = "/detail/{id}")
+	public String detail(Model model, @PathVariable("id") Integer id) {
+		BucketList bucketList = this.bucketService.getBucket(id);
+		model.addAttribute("bucketList", bucketList);
+		return "bucket_detail";
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/modify/{id}")
+	public String bucketModify(BucketForm bucketForm, @PathVariable("id") Integer id, Principal principal) {
+		BucketList bucketList = this.bucketService.getBucket(id);
+		if (!bucketList.getAuthor().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수  정  권  한  이  없  습  니  다 .");
+		}
+		bucketForm.setSubject(bucketList.getSubject());
+		bucketForm.setContent(bucketList.getContent());
+		return "bucket_form";
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/modify/{id}")
+	public String bucketModify(@Valid BucketForm bucketForm, BindingResult bindingResult, Principal principal,
+			@PathVariable("id") Integer id) {
+		if (bindingResult.hasErrors()) {
+			return "bucket_form";
+		}
+		BucketList bucketList = this.bucketService.getBucket(id);
+		if (!bucketList.getAuthor().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수  정  권  한  이  없  습  니  다 .");
+		}
+		this.bucketService.modify(bucketList, bucketForm.getSubject(), bucketForm.getContent());
+		return String.format("redirect:/bucket/detail/%s", id);
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/delete/{id}")
+	public String bucketDelete(Principal principal, @PathVariable("id") Integer id) {
+		BucketList bucketList = this.bucketService.getBucket(id);
+		if (!bucketList.getAuthor().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭  제  권  한  이 없  습  니  다 .");
+		}
+		this.bucketService.delete(bucketList);
+		return "redirect:/bucket/list";
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/clear/{id}")
+	public String bucketC(Principal principal, @PathVariable("id") Integer id) {
+		BucketList bucketList = this.bucketService.getBucket(id);
+		if (!bucketList.getAuthor().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "완  료  권  한  이 없  습  니  다 .");
+		}
+		this.bucketService.clear(bucketList);
+		return "redirect:/bucket/list";
+	}
+	@PostMapping("/upload")
+	public String upload(@RequestParam("uploadfile") 
+			MultipartFile[] uploadfile, Model model) {
+
+		List<FileDto> list = new ArrayList<>();
+
+		for (MultipartFile file : uploadfile) {			
+			FileDto dto = new FileDto( file.getOriginalFilename(), file.getContentType() );	
+			list.add(dto);
+			File newFileName = new File(dto.getFileName());
+	        
+			try {
+				file.transferTo(newFileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		model.addAttribute("files", list);
+		return "results";
+	}
+}

@@ -1,0 +1,15 @@
+package com.example.test.file;
+
+import org.springframework.web.bind.annotation.PostMapping;
+
+import ch.qos.logback.core.model.Model;
+
+public class ImageController {
+
+	@PostMapping("/upload")
+	public String write(Model model) {
+		
+
+		return "redirect:/";
+	}
+}

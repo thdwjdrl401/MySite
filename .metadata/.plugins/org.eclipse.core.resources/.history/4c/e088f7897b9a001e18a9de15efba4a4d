@@ -1,0 +1,81 @@
+package com.example.test;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.core.io.ClassPathResource;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class GetJson {
+
+	
+	public void readJson(String filePath) throws Exception {
+//		JSONParser parser = new JSONParser();
+//		// JSON 파일 읽기
+//		
+//		Path currentPath = Paths.get("");
+//        String path = currentPath.toAbsolutePath().toString();
+//		log.info("현재 작업경로 = " + path);
+//
+//		Reader reader = new FileReader(path+filePath);
+//		JSONObject dateArray = (JSONObject) parser.parse(reader);
+////		log.info("ObjTitle = " + dateArray);
+
+
+			String str = ""; 
+			String[] sb; 
+			List<String> result = new ArrayList<String>();
+			ClassPathResource resource = null; 
+			InputStreamReader reader = null; 
+			
+			
+			try {
+			
+					resource = new ClassPathResource("static/json/Seoul.json"); 
+					reader = new InputStreamReader(resource.getInputStream(), "UTF-8"); 
+					BufferedReader br = new BufferedReader(reader); 
+					
+					log.info("resource = " + resource);
+
+					log.info("reader = " + reader);
+					log.info("br = " + br);
+
+					     while ((str = br.readLine()) != null) { 
+					    	 if(str.indexOf("SIG_KOR_NM") != -1) {
+									sb = str.split("\"");
+									result.add(sb[3]);
+//									System.out.println(sb[3]); 
+
+									
+					    	 }
+					     } 
+							log.info("result = " + result.toString());
+
+					     
+				} catch (Exception e) { 
+				
+				
+				e.printStackTrace();
+        
+				} 
+//        return sb; 
+        
+   
+		
+		
+		
+		
+		
+//		for (int i = 0; i < dateArray.size(); i++) {
+//			JSONObject element = (JSONObject) dateArray.get(i);
+//			JSONObject ObjNews = (JSONObject) element.get("news");
+//			String ObjTitle = (String) ObjNews.get("title");
+//			System.out.println("ObjTitle = " + ObjTitle);
+//			log.info("ObjTitle = " + ObjTitle);
+//		}
+	}
+}

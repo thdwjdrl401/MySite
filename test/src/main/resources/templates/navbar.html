@@ -1,6 +1,6 @@
 <nav
   th:fragment="navbarFragment"
-  class="navbar sticky-top navbar-expand-lg navbar-light bg-light border-bottom"
+  class="navbar sticky-top navbar-expand navbar-light bg-light border-bottom"
 >
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
@@ -18,33 +18,218 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-2 mb-lg-0">
+    <div
+      class="collapse navbar-collapse justify-content-between"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" th:href="@{/bucket/list}">버킷리스트</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/question/list}">3줄일기</a>
         </li>
-      </ul>
-      <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a
-            class="nav-link d-flex"
-            sec:authorize="isAnonymous()"
-            th:href="@{/user/login}"
-            >로그인
-          </a>
+          <div class="btn-group">
           <a
             class="nav-link"
-            sec:authorize="isAuthenticated()"
-            th:href="@{/user/logout}"
-            >로그아웃
-          </a>
+            th:href="@{/map}"
+            >지도</a>
+            <a
+            class="nav-link dropdown-toggle"
+            th:href="@{/map}"
+            id="navbarDropdownMenuLinkMap"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            ></a>
+            <ul
+              class="dropdown-menu multi-level  bg-light"
+              aria-labelledby="navbarDropdownMenuLinkMap"
+            >
+            <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Seoul}"
+                  >서울</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Busan}"
+                  >부산</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Deagu}"
+                  >대구</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Incheon}"
+                  >인천</a
+                >
+              </li>
+               <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Gwangju}"
+                  >광주</a
+                >
+              </li>
+               <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Daejeon}"
+                  >대전</a
+                >
+              </li>
+               <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Ulsan}"
+                  >울산</a
+                >
+              </li>
+               <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Sejong}"
+                  >세종</a
+                >
+              </li>
+               <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Gyeonggi-do}"
+                  >경기도</a
+                >
+              </li>
+               <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Gangwon-do}"
+                  >강원도</a
+                >
+              </li>
+               <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Chungcheongbuk-do}"
+                  >충청북도</a
+                >
+              </li>
+               <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Chungcheongnam-do}"
+                  >충청남도</a
+                >
+              </li>
+               <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Jeollabuk-do}"
+                  >전라북도</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Jeollanam-do}"
+                  >전라남도</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Gyeongsangbuk-do}"
+                  >경상북도</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Gyeongsangnam-do}"
+                  >경상남도</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  th:href="@{/map/Jeju-do}"
+                  >제주도</a
+                >
+              </li>
+                    
+            </ul>
+          </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/user/signup}">회원가입 </a>
-        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <div class="btn-group dropstart">
+          <li class="nav-item">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end bg-light"
+              aria-labelledby="navbarDropdownMenuLink"
+            >
+              <li>
+                <a
+                  class="dropdown-item"
+                  sec:authorize="isAnonymous()"
+                  th:href="@{/user/login}"
+                  >로그인</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  sec:authorize="isAuthenticated()"
+                  th:href="@{/user/logout}"
+                  >로그아웃</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  sec:authorize="isAuthenticated()"
+                  th:href="@{/user/info}"
+                  >내 정보</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  sec:authorize="isAnonymous()"
+                  th:href="@{/user/signup}"
+                  >회원가입</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  sec:authorize="isAuthenticated()"
+                  th:href="@{/home/changehome}"
+                  >배경화면 변경</a
+                >
+              </li>
+            </ul>
+          </li>
+        </div>
       </ul>
     </div>
   </div>

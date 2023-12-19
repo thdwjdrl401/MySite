@@ -1,0 +1,72 @@
+package com.example.test.user;
+
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.test.test.ImageService;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
+
+
+@RequiredArgsConstructor
+@Controller
+@RequestMapping("/user")
+public class UserController {
+	private final UserService userService;
+	private final ImageService imageService;
+	
+	@GetMapping("/signup")
+	public String signup(UserCreateForm userCreateForm) {
+		return "signup_form";
+	}
+
+	@PostMapping("/signup")
+	public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "signup_form";
+		}
+		if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
+			bindingResult.rejectValue("password2", "passwordInCorrect",
+					"2개  의       패  스  워  드  가       일  치  하  지       않  습  니  다 .");
+			return "signup_form";
+		}
+		try {
+			userService.create(userCreateForm.getUsername(), userCreateForm.getName(), userCreateForm.getEmail(), userCreateForm.getPassword1());
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			bindingResult.reject("signupFailed", "이  미       등  록  된       사  용  자  입  니  다 .");
+			return "signup_form";
+		} catch (Exception e) {
+			e.printStackTrace();
+			bindingResult.reject("signupFailed", e.getMessage());
+			return "signup_form";
+		}
+		return "redirect:/";
+	}
+	@GetMapping("/login")
+	public String login() {
+		return "login_form";
+		}
+
+//	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/info")
+	public String userInfo(Model model, Authentication authentication) {
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		SiteUser user = userService.getUser(userDetails.getUsername());
+//        ImageResponseDTO image = imageService.findImage(principal.getName());
+//        
+		model.addAttribute("user", user);
+//        model.addAttribute("image", image);
+		return "/";
+		}
+}

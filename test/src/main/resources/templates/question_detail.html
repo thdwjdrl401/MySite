@@ -18,6 +18,11 @@
               th:text="${#temporals.format(question.modifyDate, 'yyyy-MM-dd HH:mm')}"
             ></div>
           </div>
+          <div class="mb-3" th:if="${question.author.image != null}">
+                    <div>
+                            <img th:src="${question.author.image.url}" class="rounded-circle" alt="Image" width="40px" height="40px">
+                    </div>
+                </div>
           <div class="badge bg-light text-dark p-2 text-start">
             <div class="mb-2">
               <span
@@ -83,7 +88,24 @@
               th:text="${#temporals.format(answer.modifyDate, 'yyyy-MM-dd HH:mm')}"
             ></div>
           </div>
+          
+          <div class="mb-3" th:if="${answer.author.image != null}">
+                    <div>
+                            <img th:src="${answer.author.image.url}" class="rounded-circle" alt="Image" width="40px" height="40px">
+                    </div>
+                </div>
+                
           <div class="badge bg-light text-dark p-2 text-start">
+			  
+			  
+			  
+			  
+			  
+                
+                
+                
+                
+                
             <div class="mb-2">
               <span
                 th:if="${answer.author != null}"

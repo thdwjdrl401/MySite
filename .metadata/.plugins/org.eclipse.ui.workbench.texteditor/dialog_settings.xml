@@ -6,19 +6,31 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="findBy"/>
+		<item key="selection" value="console"/>
 		<list key="findhistory">
-			<item value="findBy"/>
-			<item value="findByname"/>
-			<item value="modifi"/>
-			<item value="추천"/>
+			<item value="console"/>
+			<item value="korea.json"/>
+			<item value="src"/>
+			<item value="dto."/>
+			<item value="d3_geo_mercator"/>
+			<item value="d3_geo_mercatorProjection"/>
+			<item value="d3.geo.mercator"/>
+			<item value="d3_geo_transverseMercator"/>
+			<item value="mercator"/>
+			<item value="clipExtent"/>
+			<item value=".mercator"/>
+			<item value=".translate"/>
+			<item value=".scale("/>
+			<item value=".scale"/>
+			<item value="d3.geo.mercator()"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="961"/>
-		<item key="DIALOG_Y_ORIGIN" value="141"/>
+		<item key="DIALOG_X_ORIGIN" value="1018"/>
+		<item key="DIALOG_Y_ORIGIN" value="393"/>
 		<item key="DIALOG_WIDTH" value="322"/>
 		<item key="DIALOG_HEIGHT" value="391"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

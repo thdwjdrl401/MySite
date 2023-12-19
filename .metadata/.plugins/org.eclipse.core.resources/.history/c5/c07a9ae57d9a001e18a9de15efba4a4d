@@ -1,0 +1,162 @@
+package com.example.test.map;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.test.GetJson;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class MapImageService {
+	private final MapImageRepository mapImageRepository;
+	@Value("${file.mapImagePath}")
+	private String uploadFolder;
+
+	public void upload(MapImageUploadDTO imageUploadDTO, String location) {
+		MultipartFile file = imageUploadDTO.getFile();
+
+		UUID uuid = UUID.randomUUID();
+		String imageFileName = uuid + "_" + file.getOriginalFilename();
+
+		File destinationFile = new File(uploadFolder + imageFileName);
+
+		try {
+			file.transferTo(destinationFile);
+			MapImage mapImage = mapImageRepository.findByLocation(location);
+			if (mapImage.getUrl() == "/mapImage/black.png") {
+				// 이미지가 이미 존재하면 url 업데이트
+				File deletefile = new File("C:/Temp" + mapImageRepository.findByLocation(location).getUrl());
+				if (deletefile.exists() == false)
+					deletefile = new File("home/lazy/Temp" + mapImageRepository.findByLocation(location).getUrl());
+				deletefile.delete();
+				mapImage = mapImageRepository.findByLocation(location);
+				mapImage.updateUrl("/mapImage/" + imageFileName);
+
+			} else {
+//			 이미지가 없으면 객체 생성 후 저장
+				File deletefile = new File("C:/Temp" + mapImageRepository.findByLocation(location).getUrl());
+				if (deletefile.exists() == false)
+					deletefile = new File("home/lazy/Temp" + mapImageRepository.findByLocation(location).getUrl());
+				mapImage = mapImageRepository.findByLocation(location);
+				mapImage.updateUrl("/mapImage/" + imageFileName);
+			}
+			mapImageRepository.save(mapImage);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public MapImagesResponseDTO getImageDTO() {
+		String defaultImageUrl = "/mapImage/black.png";
+		List<String> Location = Arrays.asList("Seoul", "Busan", "Deagu", "Incheon", "Gwangju", "Daejeon", "Ulsan",
+				"Sejong", "Gyeonggi-do", "Gangwon-do", "Chungcheongbuk-do", "Chungcheongnam-do", "Jeollabuk-do",
+				"Jeollanam-do", "Gyeongsangbuk-do", "Gyeongsangnam-do", "Jeju-do");
+		List<String> Location_kr = Arrays.asList("서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경기도", "강원도", "충청북도",
+				"충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주도");
+		List<MapImage> imageList = mapImageRepository.findAll();
+		for (int i = 1; i <= 17; i++) {
+
+			try {
+				MapImage image = mapImageRepository.getReferenceById(i);
+
+				if (image.getUrl() == null) {
+
+					image.setId(i);
+
+					image.setLocation(Location.get(i - 1));
+
+					image.setLocation_kr(Location_kr.get(i - 1));
+
+					image.setUrl(defaultImageUrl);
+
+					mapImageRepository.save(image);
+
+				}
+
+				imageList.set(i - 1, image);
+			} catch (Exception e) {
+
+				MapImage image = new MapImage();
+
+				image.setLocation(Location.get(i - 1));
+
+				image.setLocation_kr(Location_kr.get(i - 1));
+
+				image.setUrl(defaultImageUrl);
+
+				this.mapImageRepository.save(image);
+
+			}
+
+		}
+
+		return MapImagesResponseDTO.builder().mapImages(imageList).build();
+
+	}
+
+	public MapImageResponseDTO getImageDTO(String location) {
+
+		MapImage image = mapImageRepository.findByLocation(location);
+
+		return MapImageResponseDTO.builder().mapImage(image).build();
+
+	}
+
+	public MapImagesResponseDTO getDetailImageDTO(String location) throws Exception {
+		
+		String defaultImageUrl = "/mapImage/black.png";
+		GetJson json = new GetJson();
+		List<String> locations = json.readJson(location);
+		List<String> locations_kr = json.readJson_kr(location);
+		
+		for (int i = 1; i <= locations.size(); i++) {
+
+			try {
+				MapImage image = mapImageRepository.getReferenceById(i);
+
+				if (image.getUrl() == null) {
+
+					image.setId(i);
+
+					image.setLocation(Location.get(i - 1));
+
+					image.setLocation_kr(Location_kr.get(i - 1));
+
+					image.setUrl(defaultImageUrl);
+
+					mapImageRepository.save(image);
+
+				}
+
+				imageList.set(i - 1, image);
+			} catch (Exception e) {
+
+				MapImage image = new MapImage();
+
+				image.setLocation(Location.get(i - 1));
+
+				image.setLocation_kr(Location_kr.get(i - 1));
+
+				image.setUrl(defaultImageUrl);
+
+				this.mapImageRepository.save(image);
+
+			}
+
+		}
+
+		return null;
+	}
+}

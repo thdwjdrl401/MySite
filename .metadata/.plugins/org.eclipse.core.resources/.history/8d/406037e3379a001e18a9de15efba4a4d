@@ -1,0 +1,56 @@
+package com.example.test.map;
+
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.test.GetJson;
+
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/map")
+public class MapController {
+	private final MapImageService MapImageService;
+	
+	@GetMapping("")
+	public String index(Model model) {
+		MapImagesResponseDTO result = MapImageService.getImageDTO();
+		model.addAttribute("dto", result);
+		return "map";
+	}
+	
+	@GetMapping(value = "/modify/{location}")
+	public String modifyImage(Model model, @PathVariable("location") String location) {
+	MapImageResponseDTO result = MapImageService.getImageDTO(location);
+//		model.addAttribute("comment", question);
+		model.addAttribute("dto", result);
+		return "map_modify";
+		
+	}
+	
+	@PostMapping("/modify/{location}")
+	public String modifyImage(@ModelAttribute MapImageUploadDTO imageUploadDTO,
+			@PathVariable("location") String location) {
+		
+		MapImageService.upload(imageUploadDTO, location);
+		return String.format("redirect:/map/%s", location);
+	}
+	
+	
+	@GetMapping("/{location}")
+	public String mapDetail(Model model,  @PathVariable("location") String location) throws Exception {
+		MapImagesResponseDTO result = MapImageService.getImageDTO();
+		model.addAttribute("dto", result);
+		model.addAttribute("location", location);
+		GetJson json = new GetJson();
+		json.readJson("/json/Seoul.json");
+		return "map_detail";
+	}
+}

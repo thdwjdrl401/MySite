@@ -1,0 +1,145 @@
+<html layout:decorate="~{layout}">
+  <div layout:fragment="content" class="container">
+    <h5 class="my-3 border-bottom pb-2">버킷리스트 등록</h5>
+    <form th:object="${bucketForm}" method="post" enctype="multipart/form-data">
+      <input
+        type="hidden"
+        th:name="${_csrf.parameterName}"
+        th:value="${_csrf.token}"
+      />
+      <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+      <div class="mb-3">
+        <label for="subject" class="form-label">제목</label>
+        <input type="text" th:field="*{subject}" class="form-control" />
+      </div>
+
+      <div class="mb-3" th:if="${dto.bucketImages != null}">
+        <div id="carouselExampleControls" class="carousel slide">
+          <div class="carousel-inner">
+            <div th:each="ImageURL : ${dto.bucketImages}">
+              <div
+                th:if="${ImageURLStat.count == 1}"
+                class="carousel-item active"
+              >
+                <button
+                  style="position: relative; z-index: 10"
+                  id="deleteButton"
+                  type="button"
+                  th:name="${ImageURL}"
+                  onclick="ajaxRequestPost();"
+                  class="btns del_btn"
+                >
+                  <span>삭제하기</span>
+                </button>
+
+                <img th:src="${ImageURL}" class="d-block w-100" alt="image" />
+              </div>
+
+              <div th:if="${ImageURLStat.count != 1}" class="carousel-item">
+                <button
+                  th:id="${ImageURLStat.index}"
+                  style="position: relative; z-index: 10"
+                  type="button"
+                  th:name="${ImageURL}"
+                  th:onclick="ajaxRequestPost2();"
+                  class="btns del_btn"
+                >                                 <span>삭제하기</span>
+</button>
+
+                <img th:src="${ImageURL}" class="d-block w-100" alt="image" />
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div style="display: flex; align-items: center">
+          <label className="input-file-button" for="files">
+            <input style="display:none;" display:"none" type="file" name="files"
+            class="form-control" id="files" multiple onchange="javascript:
+            document.getElementById('fileName').value =
+            this.value.replace(/C:\\fakepath\\/i,'')" />
+            <span class="btn btn-primary my-1" style="width: 90px"
+              >파일추가</span
+            >
+          </label>
+
+          <input
+            type="text"
+            id="fileName"
+            class="file_input_textbox"
+            readonly="readonly"
+            style="width: 100%; height: 30px; margin-left: 5px"
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="content" class="form-label">내용</label>
+        <textarea
+          th:field="*{content}"
+          class="form-control"
+          rows="10"
+        ></textarea>
+      </div>
+
+      <input type="submit" value="저장하기" class="btn btn-primary my-2" />
+    </form>
+  </div>
+
+  <th:block layout:fragment="script">
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+
+      $(document).ready(function () {
+        // name이 movieDetailBtn인 button을 클릭 했을 때
+        $(".btns").click(function () {
+          // 클릭 된 객체의 id 속성(movie 객체의 인덱스)을 가져와 index란 이름의 변수에 넣어주고
+          var index = $(this).attr("id");
+
+          var button = document.getElementById(index);
+
+          var data2 = button.name;
+if (confirm("정말로 삭제하시겠습니까?")){
+          $.ajax({
+            url: "/bucket/deleteimage",
+            type: "POST",
+            data: {
+              image_url: data2,
+              current_url: location.href,
+            },
+            async: false,
+            success: function (data) {
+              location.reload();
+              alert("삭제했습니다.");
+            },
+            error: function (e) {
+              alert("삭제 실패");
+            },
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+          });
+          }
+        });
+      });
+
+      /*]]>*/
+    </script>
+  </th:block>
+</html>

@@ -1,0 +1,11 @@
+package com.example.test.test;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface BoardPictureRepository extends CrudRepository<BoardPicture, Integer> {
+	BoardPicture save(BoardPicture boardPicture);
+
+	List<BoardPicture> findAllByBoardIdx(Integer boardIdx);
+}

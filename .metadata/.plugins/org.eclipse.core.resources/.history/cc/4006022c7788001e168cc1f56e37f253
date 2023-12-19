@@ -1,0 +1,18 @@
+<html layout:decorate="~{layout}">
+
+<body>
+	<div layout:fragment="content" class="container my-3">
+    <div>
+        <form action="/board/writepro" method="post" encType="multipart/form-data">
+            
+            
+            <input type="file" name="file">
+            <button type="submit">작성</button>
+        </form>
+    </div>
+    
+            </div>
+
+</body>
+
+</html>

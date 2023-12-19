@@ -1,0 +1,37 @@
+package com.example.test;
+
+import java.io.FileReader;
+import java.io.Reader;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import com.example.test.question.QuestionService;
+
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+
+@SpringBootTest
+class TestApplicationTests {
+	@Autowired
+	private QuestionService questionService;
+
+	@Test
+	void testJpa() {
+		JSONParser parser = new JSONParser();
+		// JSON 파일 읽기
+		Reader reader = new FileReader("/json/Seoul.json");
+		JSONArray dateArray = (JSONArray) parser.parse(reader);
+
+		for (int i = 0; i < dateArray.size(); i++) {
+			JSONObject element = (JSONObject) dateArray.get(i);
+			JSONObject ObjNews = (JSONObject) element.get("news");
+			String ObjTitle = (String) ObjNews.get("title");
+			System.out.println("ObjTitle = " + ObjTitle);
+			log.info("ObjTitle = " + ObjTitle);
+		}
+	}
+}

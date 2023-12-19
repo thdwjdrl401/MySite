@@ -1,0 +1,42 @@
+package com.example.test;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+
+
+@Controller
+public class BoardController {
+	private final BoardService boardService;
+
+	@GetMapping("/board/write") // localhost:8080/board/write 주소에 매핑
+	public String boardWriteForm() {
+		return "image"; // templates의 html 파일의 이름을 작성
+	}
+
+	@PostMapping("/board/writepro")
+	public String boardWritePro(Board board) {
+		System.out.println(board.getTitle());
+
+		return "";
+	}
+//	@PostMapping("/board/writepro")
+//    public String boardWritePro(Board board, Model model) { // 데이터가 board에 담겨서 들어옴
+//
+//        boardService.write(board);
+//
+//        model.addAttribute("message", "글 작성이 완료되었습니다.");
+//        model.addAttribute("searchUrl", "/board/list");
+//
+//        return "message";
+//    }
+	
+	@GetMapping("/board/view") // localhost:8080/board/view?id=1
+    public String boardView(Model model, Integer id) {
+        model.addAttribute("board", boardService.boardView(id));
+
+        return "boardview";
+    }
+}

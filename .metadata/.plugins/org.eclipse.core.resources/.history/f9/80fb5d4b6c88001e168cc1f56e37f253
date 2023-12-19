@@ -1,0 +1,21 @@
+package com.example.test.file;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.test.bucketlist.BucketList;
+import com.example.test.bucketlist.BucketService;
+
+public class ImageController {
+
+	@PostMapping("/upload")
+	public String write(@ModelAttribute ImageUploadDTO imageUploadDTO) {
+
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		bucketService.saveBucket(bucketList, imageUploadDTO, userDetails.getUsername());
+
+		return "redirect:/";
+	}
+}

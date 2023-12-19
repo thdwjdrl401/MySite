@@ -1,0 +1,77 @@
+package com.example.test.bucketlist;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.test.DataNotFoundException;
+import com.example.test.file.UploadFile;
+import com.example.test.user.SiteUser;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Service
+public class BucketService {
+	private final BucketRepository bucketRepository;
+    private final FileStore fileStore;
+
+	public List<BucketList> getList() {
+		return this.bucketRepository.findAll();
+	}
+
+	public BucketList getBucket(Integer id) {
+		Optional<BucketList> bucket = this.bucketRepository.findById(id);
+		if (bucket.isPresent()) {
+			return bucket.get();
+		} else {
+			throw new DataNotFoundException("bucketlist not found");
+		}
+	}
+
+	public void create(String subject, String content, SiteUser user, MultipartFile attachFile, List<MultipartFile> imageFiles) {
+		BucketList b = new BucketList();
+		b.setSubject(subject);
+		b.setContent(content);
+		b.setCreateDate(LocalDateTime.now());
+		b.setAuthor(user);
+		
+		UploadFile attachFile = fileStore.storeFile(attachFile);
+	    List<UploadFile> imageFiles = fileStore.storeFiles(imageFiles);
+	    b.setAttachFile(attachFile);
+	    b.setImageFiles(imageFiles);
+		
+
+		this.bucketRepository.save(b);
+		
+	}
+
+	public void modify(BucketList bucketList, String subject, String content) {
+		bucketList.setSubject(subject);
+		bucketList.setContent(content);
+		this.bucketRepository.save(bucketList);
+	}
+
+	public void delete(BucketList bucketList) {
+		this.bucketRepository.delete(bucketList);
+	}
+
+	public void clear(BucketList bucketList) {
+
+		if (bucketList.getClear() == 1) {
+			bucketList.setClear(0);
+			bucketList.setClearDate(null);
+		} else if (bucketList.getClear() == 0) {
+			bucketList.setClear(1);
+			bucketList.setClearDate(LocalDateTime.now());
+		}
+
+		this.bucketRepository.save(bucketList);
+	}
+
+	
+
+}

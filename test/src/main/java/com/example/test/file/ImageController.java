@@ -1,0 +1,22 @@
+package com.example.test.file;
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
+//import com.example.test.file.ImageService;
+
+@Controller
+public class ImageController {
+	
+	private ImageService imageService;
+//
+//	@PostMapping("/upload")
+//	public String uploadFile(@RequestPart MultipartFile file) throws IOException {
+//		imageService.uploadFile(file);
+//		return "redirect:/";
+//	}
+}

@@ -1,13 +1,20 @@
 package com.example.test.user;
 
-import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.test.test.ImageResponseDTO;
+import com.example.test.test.ImageService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 
 
 
@@ -16,7 +23,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 @RequestMapping("/user")
 public class UserController {
 	private final UserService userService;
-
+	private final ImageService imageService;
+	
 	@GetMapping("/signup")
 	public String signup(UserCreateForm userCreateForm) {
 		return "signup_form";
@@ -48,5 +56,17 @@ public class UserController {
 	@GetMapping("/login")
 	public String login() {
 		return "login_form";
+		}
+
+//	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/info")
+	public String userInfo(Model model, Authentication authentication) {
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		SiteUser user = userService.getUser(userDetails.getUsername());
+        ImageResponseDTO image = imageService.findImage(userDetails.getUsername());
+//        
+		model.addAttribute("user", user);
+        model.addAttribute("image", image);
+		return "user_info";
 		}
 }

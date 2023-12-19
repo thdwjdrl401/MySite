@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/basic_board/style.css">
+  <title>게시판</title>
+  <nav>글 보기 화면</nav>
+</head>
+<body>
+<div>
+  <br/>
+  <div align="center">
+    <form th:action="@{/basic-board/content/{id} (id=${content.id})}" th:method="post">
+      <div class="form-group" align="left">
+        <div th:text="'글 제목 : ' + ${content.title}"></div>
+        <br/>
+        <div th:text="'작성자 : ' + ${content.writer}"></div>
+        <br/>
+        <label for="password">비밀번호 확인 : </label>
+        <input type="password" id="password" name="password" width="200px">
+        <br/><br/>
+        <text>첨부파일(클릭시 다운) : </text>
+        <a th:if="${content.attachFile}" th:href="|/basic-board/attach/${content.id}|"
+           th:text="${content.attachFile.uploadFilename}" />
+        <br/><br/>
+        <text>첨부된 이미지 파일들</text>
+        <br/>
+        <img th:each="imageFile : ${content.imageFiles}" th:src="|/basic-board/images/${imageFile.storeFilename}|"
+             width="100px" height="100px" style="border-color: black; border-style: solid; border-width: thin;"/>
+        <br/><br/>
+        <label for="texts">글 내용 : </label>
+        <br/><br/>
+        <textarea id="texts" name="texts">[[${content.texts}]]</textarea>
+        <br/>
+      </div>
+      <button type="submit" style="margin-right: 50px">수정</button>
+      <button type="submit" th:formaction="@{/basic-board/content/delete/{id} (id=${content.id})}">삭제</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+	
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <!-- sbb CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <title>CGDA</title>
+    <!-- 지도 -->
+	<link rel="stylesheet" th:href="@{/assets/css/korea-map-font-v1.css}">
+    <style>
+		a {
+			text-decoration:none;
+			color: black;
+
+		}
+
+		.korea-map-font-v1 {
+ 		 width: 500px;
+  		font-size: 500px;
+ 
+		}
+
+
+  	#container {
+        width: 500px;
+        min-height: 700px;
+        float: left;
+        fill: none;
+      }
+    
+      #states path {
+        stroke: #000000;
+        stroke-width: 1px;
+
+      }
+
+	  
+      #states path:hover {
+        fill: #009300;
+      }
+
+      #states .active {
+        fill: red;
+      }
+
+      #states .activeDetail {
+        fill: blue;
+      }
+
+      #states path {
+        cursor: pointer;
+      }
+
+      #states text {
+        cursor: pointer;
+        font-size: 12px;
+        fill: none;
+      }
+      
+      
+      .dropdown-submenu { position: relative;}.dropdown-submenu>.dropdown-menu {    top: 0;    left: 100%;    margin-top: -6px;    margin-left: -1px;    -webkit-border-radius: 0 6px 6px 6px;    -moz-border-radius: 0 6px 6px;    border-radius: 0 6px 6px 6px;}.dropdown-submenu:hover>.dropdown-menu { display: block;}.dropdown-submenu>a:after {    display: block;    content: " ";    float: right;    width: 0;    height: 0;    border-color: transparent;    border-style: solid;    border-width: 5px 0 5px 5px;    border-left-color: #ccc;    margin-top: 5px;    margin-right: -10px;}.dropdown-submenu:hover>a:after { border-left-color: #fff;}.dropdown-submenu.pull-left { float: none;}.dropdown-submenu.pull-left>.dropdown-menu {    left: -100%;    margin-left: 10px;    -webkit-border-radius: 6px 0 6px 6px;    -moz-border-radius: 6px 0 6px 6px;    border-radius: 6px 0 6px 6px;}
+
+		</style>
+		    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		    
+		 <!-- 드롭박스 -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+
+</head>
+
+<body>
+<!-- 네비게이션바 -->
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+<th:block layout:fragment="content"></th:block>
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- Bootstrap JS -->
+<script th:src="@{/bootstrap.min.js}"></script>
+<!-- 자  바  스  크  립  트     Start -->
+<th:block layout:fragment="script"></th:block>
+<!-- 자  바  스  크  립  트     End -->
+</body>
+</html>

@@ -1,0 +1,7 @@
+package com.example.test.test;
+
+public interface BoardPictureRepository extends CrudRepository<BoardPicture, Integer> {
+	BoardPicture save(BoardPicture boardPicture);
+
+	List<BoardPicture> findAllByBoardIdx(Integer boardIdx);
+}

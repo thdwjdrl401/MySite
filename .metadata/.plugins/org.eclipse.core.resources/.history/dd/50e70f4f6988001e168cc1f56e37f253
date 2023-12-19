@@ -1,0 +1,35 @@
+package com.example.test.file;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import com.example.test.bucketlist.BucketList;
+
+@Getter
+@NoArgsConstructor
+public class ImageUploadDTO {
+	private Integer id;
+	private String title;
+	private String content;
+	private LocalDateTime createdAt;
+	private String username;
+	private String email;
+	// 이부분 추가
+	private List<String> imageUrls;
+
+	@Builder
+	public ImageUploadDTO(BucketList bucketList) {
+		this.id = bucketList.getId();
+		this.title = bucketList.getSubject();
+		this.content = bucketList.getContent();
+		this.createdAt = bucketList.getCreatedAt();
+		this.username = bucketList.getMember().getUsername();
+		this.email = bucketList.getMember().getEmail();
+		// 이부분 추가
+		this.imageUrls = bucketList.getBoardImages().stream().map(Image::getUrl).collect(Collectors.toList());
+	}
+}

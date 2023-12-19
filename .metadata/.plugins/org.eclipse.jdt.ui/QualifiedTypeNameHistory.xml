@@ -2,4 +2,21 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="org.springframework.data.annotation.CreatedDate"/>
     <fullyQualifiedTypeName name="com.example.test.user.UserService"/>
+    <fullyQualifiedTypeName name="groovy.util.logging.Slf4j"/>
+    <fullyQualifiedTypeName name="com.example.test.test.Image"/>
+    <fullyQualifiedTypeName name="com.example.test.home.HomeImageService"/>
+    <fullyQualifiedTypeName name="org.slf4j.Logger"/>
+    <fullyQualifiedTypeName name="org.hibernate.validator.internal.util.logging.LoggerFactory"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="com.example.test.test.ImageRepository"/>
+    <fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Table"/>
+    <fullyQualifiedTypeName name="lombok.Builder"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.example.test.map.MapImage"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.criteria.Path"/>
+    <fullyQualifiedTypeName name="java.nio.file.Path"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>

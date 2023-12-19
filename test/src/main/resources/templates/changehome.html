@@ -1,0 +1,17 @@
+<html layout:decorate="~{layout}">
+  <div layout:fragment="content" class="container my-3">
+    <div class="row my-3">
+      <div class="col-6"></div>
+      
+      <img th:src="${dto.url}" />
+<form 
+      th:action="@{/home/upload}" th:method="post" enctype="multipart/form-data" class="mt-2">
+                        <div class="mb-3">
+                            <input type="file" class="form-control" name="file" accept="home/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">적용</button>
+                    </form>
+     <!-- <img src="/draw2.jpg" />-->
+    </div>
+  </div>
+</html>

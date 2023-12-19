@@ -1,0 +1,9 @@
+package com.example.test.file;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FileRepository extends JpaRepository<FileEntity,Long> {
+	void saveAll(List<FileEntity> files);
+}

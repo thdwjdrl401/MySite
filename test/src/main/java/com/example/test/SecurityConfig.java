@@ -18,10 +18,17 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
+				.requestMatchers(new AntPathRequestMatcher("/bucket/**")).authenticated())
+				.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+						.requestMatchers(new AntPathRequestMatcher("/question/**")).authenticated())
+				.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+						.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
 				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
+				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/image/**")))
+				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/bucket/**")))
+				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/**")))
 				.headers((headers) -> headers.addHeaderWriter(
 						new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
 				.formLogin((formLogin) -> formLogin.loginPage("/user/login").defaultSuccessUrl("/"))

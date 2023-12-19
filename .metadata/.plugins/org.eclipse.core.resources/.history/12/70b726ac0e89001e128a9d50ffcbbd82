@@ -1,0 +1,5 @@
+package com.example.test.test;
+
+public interface BoardPictureRepository {
+
+}

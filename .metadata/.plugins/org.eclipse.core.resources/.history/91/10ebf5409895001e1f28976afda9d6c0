@@ -1,0 +1,28 @@
+package com.example.test.map;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@NoArgsConstructor
+public class MapImageResponseDTO {
+	private List<String> urls;
+	private String url;
+	private String location;
+	private List<String> locations;
+
+
+	@Builder
+	public MapImageResponseDTO(List<MapImage> mapImages, MapImage mapImage) {
+		this.url = mapImage.getUrl();
+		this.urls = mapImages.stream().map(MapImage::getUrl).collect(Collectors.toList());
+		this.location = mapImage.getLocation();
+		this.locations = mapImages.stream().map(MapImage::getLocation).collect(Collectors.toList());
+	}
+
+}

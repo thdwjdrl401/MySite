@@ -1,5 +1,12 @@
 package com.example.test.bucketlist;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.test.user.SiteUser;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -8,9 +15,22 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BucketForm {
+	private Integer id;
+
 	@NotEmpty(message = "제  목  은       필  수  항  목  입  니  다 .")
 	@Size(max = 200)
 	private String subject;
 	@NotEmpty(message = "내  용  은       필  수  항  목  입  니  다 .")
 	private String content;
+	
+	private LocalDateTime createDate;
+	private LocalDateTime clearDate;
+	
+	private SiteUser author;
+	private Integer clear = 0;
+	
+	private List<MultipartFile> files;
+
+
+
 }
