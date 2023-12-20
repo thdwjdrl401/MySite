@@ -19,13 +19,13 @@
 
 
 ## 진행도
- - 홈 화면
+ ### - 홈 화면
 	 - [x] 홈화면 사진 등록 및 변경
 
          ![KakaoTalk_20231220_220855596_09](https://github.com/thdwjdrl401/MySite/assets/56518110/90c7af42-c0af-49f1-a7d8-841981e6f2a0)
 
 
- - 버킷 리스트
+###  - 버킷 리스트
 	 - [x] 게시물 등록 및 도식
 
          ![KakaoTalk_20231220_220855596_08](https://github.com/thdwjdrl401/MySite/assets/56518110/26d2f104-ea0f-41fb-a208-dfdd329b00f0)
@@ -36,7 +36,7 @@
       
 	![KakaoTalk_20231220_220855596_05](https://github.com/thdwjdrl401/MySite/assets/56518110/421836f7-dc4a-45b8-8475-ae4e14888c45)
 
- - 일기
+###  - 일기
 	 - [x] 게시물 등록 및 도식
 	 - [x] 페이징 및 검색 기능
 
@@ -58,7 +58,7 @@
       
 	![KakaoTalk_20231220_220855596_01](https://github.com/thdwjdrl401/MySite/assets/56518110/0d6fa1f9-2e3e-421b-becb-b0173d4859a4)
 
- - 유저
+###  - 유저
 	 - [x] 회원가입
      
 	![KakaoTalk_20231220_221341361](https://github.com/thdwjdrl401/MySite/assets/56518110/fe0f39f6-724c-416d-a255-de2a2e084224)
@@ -72,5 +72,5 @@
 
 	 - [ ] 유저 정보 수정 및 삭제
 	 - [ ] 계정 등급 관리
-- DB
+### - DB
 	- [ ] Oracle DB로 변경
