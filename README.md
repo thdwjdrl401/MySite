@@ -20,7 +20,7 @@
 
 ## 진행도
  ### - 홈 화면
-	 - [x] 홈화면 사진 등록 및 변경
+ - [x] 홈화면 사진 등록 및 변경
 
 ![KakaoTalk_20231220_220855596_09](https://github.com/thdwjdrl401/MySite/assets/56518110/b3714770-5e9f-467d-a1bd-d944f7a0155d)
 
