@@ -5,15 +5,15 @@
 
 ## SKILLS
 - Front-end
-	HTML, CSS, JavaScript
+	- HTML, CSS, JavaScript
 - Back-end
-	JAVA 
+	- JAVA 
 - Framework
-	Spring Boot, Bootstrap 
+	- Spring Boot, Bootstrap 
 - Library
-	d3.js
+	- d3.js
 - DB
-	H2
+	- H2
 
 ## 서버 환경
 - Ubuntu 22.03.3 LTS
