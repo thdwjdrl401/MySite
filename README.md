@@ -4,6 +4,10 @@
 
  배포 : http://116.40.185.89:8080
 
+
+## 프로젝트 기간
+2023.11.03 ~
+
 ## SKILLS
 - Front-end
 	- HTML, CSS, JavaScript
