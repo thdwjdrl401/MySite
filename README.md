@@ -39,11 +39,11 @@
 - [x] 게시물 등록 및 도식
 - [x] 페이징 및 검색 기능
 
-         ![KakaoTalk_20231220_220855596_04](https://github.com/thdwjdrl401/MySite/assets/56518110/c5c6d560-98c6-49ff-9e6f-c9c3d742d55a)
+ ![KakaoTalk_20231220_220855596_04](https://github.com/thdwjdrl401/MySite/assets/56518110/c5c6d560-98c6-49ff-9e6f-c9c3d742d55a)
 - [x] 읽음 표시, 수정, 삭제
 - [x] 답글
 - [x] 작성자 프로필
-      
+ 
 	![KakaoTalk_20231220_220855596_03](https://github.com/thdwjdrl401/MySite/assets/56518110/0e262af3-c18b-4826-9812-60aec5ba3a6d)
 	  
 ### - 지도
@@ -71,6 +71,6 @@
 
 - [ ] 유저 정보 수정 및 삭제
 - [ ] 계정 등급 관리
-- [ ] 
+
 ### - DB
 - [ ] Oracle DB로 변경
