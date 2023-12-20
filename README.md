@@ -47,7 +47,7 @@
       
 	![KakaoTalk_20231220_220855596_03](https://github.com/thdwjdrl401/MySite/assets/56518110/0e262af3-c18b-4826-9812-60aec5ba3a6d)
 	  
- - 지도
+### - 지도
 	 - [x] 지도 도식(도 기준 전국)
       
 	![KakaoTalk_20231220_220855596_02](https://github.com/thdwjdrl401/MySite/assets/56518110/a53b7a32-601f-4b7a-9545-344da3c05e0e)
@@ -58,7 +58,7 @@
       
 	![KakaoTalk_20231220_220855596_01](https://github.com/thdwjdrl401/MySite/assets/56518110/0d6fa1f9-2e3e-421b-becb-b0173d4859a4)
 
-###  - 유저
+### - 유저
 	 - [x] 회원가입
      
 	![KakaoTalk_20231220_221341361](https://github.com/thdwjdrl401/MySite/assets/56518110/fe0f39f6-724c-416d-a255-de2a2e084224)
