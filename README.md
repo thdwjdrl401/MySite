@@ -15,10 +15,10 @@
 - DB
 	H2
 
-## 구동 화면
+## 서버 환경
+- Ubuntu 22.03.3 LTS
 
-
-## 진행도
+## 진행도/구동화면
  ### - 홈 화면
  - [x] 홈화면 사진 등록 및 변경
 
@@ -27,7 +27,7 @@
 ###  - 버킷 리스트
 - [x] 게시물 등록 및 도식
 
-         ![KakaoTalk_20231220_220855596_08](https://github.com/thdwjdrl401/MySite/assets/56518110/26d2f104-ea0f-41fb-a208-dfdd329b00f0)
+ ![KakaoTalk_20231220_220855596_08](https://github.com/thdwjdrl401/MySite/assets/56518110/26d2f104-ea0f-41fb-a208-dfdd329b00f0)
 - [x] 완료, 수정 삭제
       
 	![KakaoTalk_20231220_220855596_06](https://github.com/thdwjdrl401/MySite/assets/56518110/d62af4be-cd5e-4074-9917-3c65ee37aafa)
